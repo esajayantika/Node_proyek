@@ -3,7 +3,6 @@ const app = express();
 const port = 3000;
 require('./utils/db.js') //Menjalankan koneksi ke MongoDB
 const expressLayouts = require('express-ejs-layouts');
-const {loadContact, findContact, addContact, cekDuplikat, deleteContact, updateContacts} = require('./utils/contacts.js')
 const {searchResep,detailResep,addMyfav,loadMyfav,deleteMyfav} = require('./utils/resep.js')
 const {generatePdf} = require('./utils/pdf.js')
 const Supplier = require('./model/supplier.js')
