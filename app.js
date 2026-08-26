@@ -1,14 +1,17 @@
 const express = require('express');
 const app = express();
 const port = 3000;
+require('./utils/db.js') //Menjalankan koneksi ke MongoDB
 const expressLayouts = require('express-ejs-layouts');
-const {loadContact, findContact, addContact, cekDuplikat, deleteContact, updateContacts} = require('./utils/contacts.js')
 const {searchResep,detailResep,addMyfav,loadMyfav,deleteMyfav} = require('./utils/resep.js')
 const {generatePdf} = require('./utils/pdf.js')
+const Supplier = require('./model/supplier.js')
+const Myfav = require('./model/myfav.js')
 const {body, validationResult, check} = require('express-validator')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
 const flash = require('connect-flash')
+const methodOverride = require('method-override')
 
 //cara menggunakan ejs view engine
 app.set('view engine', 'ejs')
@@ -19,6 +22,9 @@ app.use(expressLayouts)
 //build in midleware 
 app.use(express.static('public'))
 app.use(express.urlencoded({extended: true}))
+
+//setup method-override
+app.use(methodOverride('_method'))
 
 //konfigurasi flash
 app.use(cookieParser('secret'))
@@ -67,12 +73,9 @@ app.post('/add-fav/:id', async(req, res) => {
 
  const meal = await detailResep(id)
  
- await addMyfav(meal)
+ const hasil = await addMyfav(meal)
  
- res.json({
-  success: true,
-  message: 'Resep Berhasil Ditambahkan ke Myfav!'
- })
+ res.json(hasil)
 })
 
 //halaman my Favourites
@@ -89,32 +92,33 @@ app.get('/myfav', async(req, res) => {
 
 //eksport PDF
 app.get('/export-pdf/:id', async(req, res) => {
+  try {
+    const meal = await Myfav.findOne({idMeal: req.params.id})
+    generatePdf(meal,res)
 
- const myfavs = await loadMyfav()
-
- const meal = myfavs.find(
-  item => item.idMeal === req.params.id
- )
- generatePdf(meal,res)
+  } catch (err) {
+    req.flash('error', err.messsage)
+    res.send(err)
+  }
 })
 
 //delete myfav
-app.get('/delete-myfav/:id', async(req,res) => {
+app.delete('/myfav/:id', async(req,res) => {
   const id = req.params.id
-  await deleteMyfav(id)
-  res.json({
-  success: true,
-  message: 'Resep Berhasil Dihapus!'
- })
+  const hasil= await deleteMyfav(id)
+  res.json(hasil)
 })
 
+//Halaman About
 app.get('/about', (req, res) => {
   res.render('about', {
     layout:'layouts/main-layout',
     title:'About'})
 });
-app.get('/contact', (req, res) => {
-  const contacts = loadContact()
+
+//Halaman Contact
+app.get('/contact', async (req, res) => {
+  const contacts = await Supplier.find()
   res.render('contact', {
     layout:'layouts/main-layout',
     title:'Supplier Contact',
@@ -132,8 +136,8 @@ app.get('/contact/add', (req,res) => {
 })
 //proses add data contact
 app.post('/contact', [
-  body('nama').custom((value) => {
-    const duplikat = cekDuplikat(value)
+  body('nama').custom(async (value) => {
+    const duplikat = await Supplier.findOne({nama: value})
     if(duplikat){
       throw new Error('Nama Supplier Sudah Terdaftar!')
     }
@@ -141,7 +145,8 @@ app.post('/contact', [
   }),
   check('email', 'Email Tidak Valid!!').isEmail(),
   check('nomor', 'Nomor HP Tidak Valid!').isMobilePhone('id-ID')
-], (req,res) => {
+], 
+async (req,res) => {
   const errors = validationResult(req)
   if(!errors.isEmpty()){
     res.render('add-contact', {
@@ -150,76 +155,114 @@ app.post('/contact', [
       errors: errors.array()
     })
   } else{
-  addContact(req.body)
+  try{
+  await Supplier.create(req.body)
   //kirimkan flash message
   req.flash('pesan', 'Data Supplier Berhasil Ditambah!')
   res.redirect('/contact')
+  } catch (err) {
+    //menangani eror koneksi DB
+    req.flash('error', err.messsage)
+    res.send(err)
+  }
   }
   
 })
 
 //halaman delete data
-app.get('/contact/delete/:nama', (req,res) => {
-  const contact = findContact(req.params.nama)
-  //jika contact tidak ada
-  if(!contact){
-    res.status(404)
-    res.send('<h1>404</h1>')
-  } else {
-    deleteContact(req.params.nama)
-    //kirim flash massage delete data
-    req.flash('pesan', 'Data Supplier Berhasil Dihapus!')
-    res.redirect('/contact')
-  }
-  
+app.delete('/contact', async (req,res) => {
+    try{
+      await Supplier.deleteOne({nama: req.body.nama})
+      //kirim flash massage delete data
+      req.flash('pesan', 'Data Supplier Berhasil Dihapus!')
+      res.redirect('/contact')
+
+    } catch (err) {
+      //Tangani masalah koneksi DB
+      req.flash('error', err.message)
+      res.send(err)
+    }
 })
 
 //form ubah data contact
-app.get('/contact/edit/:nama', (req,res) => {
-  const contact = findContact(req.params.nama)
-  res.render('edit-contact', {
-    title: 'Form Ubah Data Supplier',
-    layout:'layouts/main-layout',
-    contact
-  })
+app.get('/contact/edit/:nama', async (req,res) => {
+  try{
+    const contact = await Supplier.findOne({nama: req.params.nama})
+    res.render('edit-contact', {
+      title: 'Form Ubah Data Supplier',
+      layout:'layouts/main-layout',
+      contact
+    })
+  }catch {
+    req.flash('error', err.message)
+    res.send(err)
+  }
 })
+
 // proses ubah data
-app.post('/contact/update', [
-  body('nama').custom((value, {req}) => {
-    const duplikat = cekDuplikat(value)
-    if(value !== req.body.oldNama && duplikat){
-      throw new Error('Nama Supplier Sudah Terdaftar!')
-    }
+app.put('/contact', 
+  [
+    body('nama').custom(async (value, {req}) => {
+    const duplikat = await Supplier.findOne({nama: value})
+    
+      if(value !== req.body.oldNama && duplikat)
+      {
+        throw new Error('Nama Supplier Sudah Terdaftar!')
+      }
+
     return true
   }),
+
   check('email', 'Email Tidak Valid!!').isEmail(),
   check('nomor', 'Nomor HP Tidak Valid!').isMobilePhone('id-ID')
-], (req,res) => {
-  const errors = validationResult(req)
-  if(!errors.isEmpty()){
-    res.render('edit-contact', {
+
+  ], 
+
+  async (req,res) => {
+   const errors = validationResult(req)
+    if(!errors.isEmpty())
+    {
+      res.render('edit-contact', {
       title: 'Form Ubah Data Supplier',
       layout: 'layouts/main-layout',
       errors: errors.array(),
       contact: req.body
-    })
-  } else{
-  updateContacts(req.body)
-  //kirimkan flash message
-  req.flash('pesan', 'Data Supplier Berhasil Diubah!')
-  res.redirect('/contact')
-  }
+      })
+    } else{
+      try{
+        await Supplier.findByIdAndUpdate(req.body._id, 
+          {
+            nama: req.body.nama,
+            nomor: req.body.nomor,
+            email: req.body.email
+          }
+        )
+        //kirimkan flash message
+        req.flash('pesan', 'Data Supplier Berhasil Diubah!')
+        res.redirect('/contact')
+      } catch (err)
+      {
+        req.flash('error', err.message)
+        res.send(err)
+      }
+    }
   
 })
 
 //halaman detail contact
-app.get('/contact/:nama', (req, res) => {
-  const contact = findContact(req.params.nama)
-  res.render('detail', {
-    layout:'layouts/main-layout',
-    title:'Detail Supplier',
-    contact
-  })
+app.get('/contact/:nama', async (req, res) => {
+  try{
+    const contact = await Supplier.findOne({nama: req.params.nama})
+    res.render('detail', {
+      layout:'layouts/main-layout',
+      title:'Detail Supplier',
+      contact
+    })
+  } catch (err) {
+    req.flash('error', err.message)
+    res.send(err)
+  }
+  
 });
 
 app.use((req,res) => {
