@@ -1,4 +1,5 @@
 const fs = require('fs')
+const Myfav = require('../model/myfav')
 
 const searchResep = async (keyword) => {
 const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${keyword}`)
@@ -11,46 +12,35 @@ const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php
 const hasil = await response.json()
 return hasil.meals[0]
 }
-//membuat folder data jika belum ada
-const dirPath = './data'
-if(!fs.existsSync(dirPath)){
-    fs.mkdirSync(dirPath)
-}
-//membuat file myfav.json jika belum ada
-const dataPath = './data/myfav.json'
-if(!fs.existsSync(dataPath)){
-    fs.writeFileSync(dataPath, '[]', 'utf-8')
-}
 
-//ambil semua data di myfav.json
+//ambil semua data di database
 const loadMyfav = async () => {
-    const file = await fs.promises.readFile('data/myfav.json', 'utf-8')
-    const json = JSON.parse(file);
-    return json
-}
-//timpa file myfav.json dengan aray baru
-const saveMyfav = async (meals) => {
-    await fs.promises.writeFile('data/myfav.json',JSON.stringify(meals,null,2))
+    return await Myfav.find()
 }
 
-//add data mealdb ke myfav.json
+//add data mealdb ke myfavs collection
 const addMyfav = async (meal) =>{ 
-    const meals = await loadMyfav()
-    const sudahAda = meals.some(
-        item => item.idMeal === meal.idMeal
-    )
-    if(!sudahAda){
-        meals.push(meal)
-        await saveMyfav(meals)
+    try {
+        const sudahAda = await Myfav.findOne({idMeal: meal.idMeal})
+        if(!sudahAda){
+            await Myfav.create(meal)
+            return{success: true, message: 'Resep Berhasil Ditambahkan ke Myfav'}
+        } else {
+            return{success: false, message: 'Resep Sudah Ada di Daftar Myfav'}
+        }
+    } catch (err) {
+        return {sucess: false, message: 'Gagal menyimpan ke database'}
     }
 }
 
 //delete data myfav
-const deleteMyfav = async (idMeal) => {
-    const meals = await loadMyfav()
-    //pilih resep yang tidak sama dengan yang ingin dihapus lalu simpan daftar resep yang baru (tanpa resep yang ingin dihapus)
-    const filteredMeals = meals.filter((meal) => meal.idMeal !== idMeal)
-    await saveMyfav(filteredMeals)
+const deleteMyfav = async (id) => {
+    try {
+        await Myfav.deleteOne({idMeal: id})
+        return {success: true, message: 'Resep Berhasil Dihapus'}
+    } catch (err) {
+        return {success: false, message: 'Gagal menghapus data'}
+    }
 } 
 
 module.exports = {searchResep,detailResep,addMyfav,loadMyfav,deleteMyfav}

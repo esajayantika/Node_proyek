@@ -8,7 +8,7 @@
                     <th scope="col">No</th>
                     <th scope="col">Recipe Name</th>
                     <th scope="col">Country</th>
-                    <th colspan="2" class="text-center">Aksi</th>
+                    <th class="text-center">Aksi</th>
                 </tr>
             </thead>
             <tbody class="table-group-divider">
@@ -26,8 +26,16 @@
                     <th scope="row"><%= i+1%></th>
                     <td><%= myfav.strMeal %></td>
                     <td><%= myfav.strCountry %></td>
-                    <td class="text-end pe-1"><a href="/export-pdf/<%= myfav.idMeal %>" class="btn btn-warning"><i class="bi bi-filetype-pdf"></i> Eksport</a></td>
-                    <td class="text-start ps-1"><button class="btn btn-danger delete" data-id="<%= myfav.idMeal %>">Delete</button></td>
+                    <td class="text-center">
+                        <div class="d-flex gap-1 justify-content-center">
+                            <a href="/export-pdf/<%= myfav.idMeal %>" class="btn btn-warning btn-sm">
+                                <i class="bi bi-filetype-pdf"></i>PDF
+                            </a>
+                            <button class="btn btn-danger btn-sm delete" data-id="<%= myfav.idMeal %>"> 
+                                <i class="bi bi-trash"></i>Delete
+                            </button>
+                        </div>
+                    </td>
                 </tr>
                 <%})%>
             </tbody>

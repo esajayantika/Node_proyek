@@ -74,12 +74,9 @@ app.post('/add-fav/:id', async(req, res) => {
 
  const meal = await detailResep(id)
  
- await addMyfav(meal)
+ const hasil = await addMyfav(meal)
  
- res.json({
-  success: true,
-  message: 'Resep Berhasil Ditambahkan ke Myfav!'
- })
+ res.json(hasil)
 })
 
 //halaman my Favourites
@@ -96,23 +93,21 @@ app.get('/myfav', async(req, res) => {
 
 //eksport PDF
 app.get('/export-pdf/:id', async(req, res) => {
+  try {
+    const meal = await Myfav.findOne({idMeal: req.params.id})
+    generatePdf(meal,res)
 
- const myfavs = await loadMyfav()
-
- const meal = myfavs.find(
-  item => item.idMeal === req.params.id
- )
- generatePdf(meal,res)
+  } catch (err) {
+    req.flash('error', err.messsage)
+    res.send(err)
+  }
 })
 
 //delete myfav
-app.get('/delete-myfav/:id', async(req,res) => {
+app.delete('/myfav/:id', async(req,res) => {
   const id = req.params.id
-  await deleteMyfav(id)
-  res.json({
-  success: true,
-  message: 'Resep Berhasil Dihapus!'
- })
+  const hasil= await deleteMyfav(id)
+  res.json(hasil)
 })
 
 //Halaman About
