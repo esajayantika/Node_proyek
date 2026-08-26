@@ -1,30 +1,25 @@
-<div class="row mt-3 justify-content-center">
-  <div class="col-md-8">
+<div class="container-fluid p-0">
      <!-- Header-->
-        <header class="bg-primary bg-gradient text-white">
-            <div class="container px-4 text-center">
-                <h1 class="fw-bolder">Welcome to Scrolling Nav</h1>
-                <p class="lead">A functional Bootstrap 5 boilerplate for one page scrolling websites</p>
-                <a class="btn btn-lg btn-light" href="#about">Start scrolling!</a>
+        <header class="bg-primary bg-gradient text-white pt-5 pb-5">
+            <div class="container-fluid px-0 text-center">
+                <h1 class="fw-bolder">Mau Masak Apa Hari Ini?</h1>
+                <p class="lead">Cari Inspirasi Menu Sarapan, Makan Siang, Hingga Makan Malam</p>
+                <form action="/" method="get" autocomplete="off" class= "d-flex justify-content-center mt-4">
+                <div class="input-group col-md-6 w-50" >
+                  <input type="text" class="form-control" placeholder="Masukkan nama makanan" name = "keyword" autocomplete="off">
+                  <button class="btn btn-dark" type="submit">Search</button>
+                </div>
+                </form>
             </div>
         </header>
-    <h1 class="text-center">
-      Cari Resep Di Seluruh Dunia!
-    </h1>
-    <form action="/" method="get" autocomplete="off">
-    <div class="input-group mb-3" action >
-      <input type="text" class="form-control" placeholder="Masukkan nama makanan" name = "keyword" autocomplete="off">
-      <button class="btn btn-dark" type="submit">Search</button>
-    </div>
-    </form>
-  </div>
-<hr>
-  <div class="row">
+<!--2. Section Hasil Pencarian-->
+<main class="container-fluid px-3 my-4">
+  <div class="row g-3">
     <% if (keyword && resep && resep.meals) { %>
-        <% resep.meals.slice(0,12).forEach(objek => { %>
-          <div class="col-md-4">
-            <div class="card mb-3">
-                <img src= <%= objek.strMealThumb %> class="card-img-top" alt="...">
+        <% resep.meals.slice(0,16).forEach(objek => { %>
+          <div class="col-6 col-md-3">
+            <div class="card h-100 shadow-sm">
+                <img src= <%= objek.strMealThumb %> class="card-img-top" alt="<%= objek.strMeal %>">
                     <div class="card-body">
                         <h5 class="card-title"> <%= objek.strMeal %>  </h5>
                         <h6 class="card-subtitle mb-2 text-body-secondary"> <%= objek.strCountry %></h6>
@@ -34,12 +29,13 @@
             </div>  
          <% }) %>
     <% } else if (keyword && resep && !resep.meals) { %>
-        <div class="col">
-            <h1 class="text-center">--Resep Tidak Ditemukan--</h1>
+        <div class="col text-center py-5">
+            <h3>--Resep Tidak Ditemukan--</h3>
         </div>
          <% } %>
   </div>
-</div>
+</main>
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -58,6 +54,7 @@
     </div>
    
   </div>
+</div>
 </div>
 <div id="fav-message"></div>
 <script src="/js/script.js"></script>
