@@ -1,17 +1,78 @@
 <div class="container-fluid p-0">
-     <!-- Header-->
-        <header class="bg-primary bg-gradient text-white pt-5 pb-5">
-            <div class="container-fluid px-0 text-center">
-                <h1 class="fw-bolder">Mau Masak Apa Hari Ini?</h1>
-                <p class="lead">Cari Inspirasi Menu Sarapan, Makan Siang, Hingga Makan Malam</p>
-                <form action="/" method="get" autocomplete="off" class= "d-flex justify-content-center mt-4">
-                <div class="input-group col-md-6 w-50" >
-                  <input type="text" class="form-control" placeholder="Masukkan nama makanan" name = "keyword" autocomplete="off">
-                  <button class="btn btn-dark" type="submit">Search</button>
-                </div>
-                </form>
+<!-- Header Hero Page-->
+<header class="bg-gradient text-white pt-5 pb-5 hero-section">
+    <div class="container-fluid px-0 text-center hero-konten">
+      <h1 class="fw-bolder tulisan">Discover Your Next Favorite Meal!</h1>
+      <p class="lead sub-tulisan col-md-8 mx-auto">Hungry for something amazing? Explore a world of delicious recipes, discover new favorites, and cook meals that look incredible and taste even better.</p>
+      <form action="/" method="get" autocomplete="off" class= "d-flex justify-content-center mt-4">
+          <div class="input-group col-md-6 w-50" >
+            <input type="text" class="form-control" placeholder="Lets Go.." name = "keyword" autocomplete="off">
+            <button class="btn btn-dark" type="submit">Search</button>
+          </div>
+      </form>
+      </div>
+</header>
+<!-- Akhir Hero page -->
+<!-- Section Crausel -->
+ <div class="container-fluid p-0" style="width: 100%">
+      <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active c-item">
+            <img src="./img/1.jpg" class="d-block w-100 c-img" alt="gambar1" />
+            <div class="carousel-caption d-none d-md-block">
+              <h2 class="text-center">A Delicious Idea For Every Craving</h2>
+              <p>Explore a variety of delicious recipes made to satisfy every craving, from comforting classics to exciting new dishes you'll love.</p>
             </div>
-        </header>
+          </div>
+          <div class="carousel-item c-item">
+            <img src="./img/2.jpg" class="d-block w-100 c-img" alt="gambar2" />
+            <div class="carousel-caption d-none d-md-block">
+              <h2 class="text-center">Craving Something Delicious?</h2>
+              <p>Discover delicious recipes, explore new flavors, and find the perfect dish to turn your cravings into a meal worth enjoying.</p>
+            </div>
+          </div>
+          <div class="carousel-item c-item">
+            <img src="./img/3.jpg" class="d-block w-100 c-img" alt="gambar3" />
+            <div class="carousel-caption d-none d-md-block">
+              <h2 class="text-center">Cook Something You'll Love</h2>
+              <p>Find recipes that inspire you to get creative in the kitchen, with delicious dishes, simple ingredients, and flavors everyone can enjoy.</p>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+ <!-- Akhir Section Crausel -->
+<!-- Rekomendasi -->
+ <div class="text-center my-5">
+  <span class="badge bg-warning text-dark mb-2">Overview</span>
+  <h3 class="fw-bold">Our Selected Dish</h3>
+  <div class="mx-auto" style="width: 50px; height: 3px; background-color: #ffc107;"></div>
+</div>
+<div class="container-fluid px-3 my-4">
+  <div class="row justify-content-center row-cols-1 row-cols-md-3 g-4">
+    <% json.forEach(item => { %>
+      <div class="col-6">
+        <div class="card">
+          <img src= <%= item.strMealThumb %> class="card-img-top" alt="<%= item.strMeal %>">
+          <div class="card-body">
+            <h5 class="card-title"><%= item.strMeal %></h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary"> <%= item.strCountry %></h6>
+            <p class="card-text"><%= item.strDesc %></p>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div>
+<!-- Akhir Rekomendasi -->
 <!--2. Section Hasil Pencarian-->
 <main class="container-fluid px-3 my-4">
   <div class="row g-3">
