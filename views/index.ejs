@@ -60,12 +60,12 @@
   <div class="row justify-content-center row-cols-1 row-cols-md-3 g-4">
     <% json.forEach(item => { %>
       <div class="col-6">
-        <div class="card">
+        <div class="card h-100 w-100 d-flex flex-column">
           <img src= <%= item.strMealThumb %> class="card-img-top" alt="<%= item.strMeal %>">
-          <div class="card-body">
-            <h5 class="card-title"><%= item.strMeal %></h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary"> <%= item.strCountry %></h6>
-            <p class="card-text"><%= item.strDesc %></p>
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title card-img-overlay"><%= item.strMeal %></h5>
+            <h6 class="card-subtitle mb-2"> <%= item.strCountry %></h6>
+            <p class="card-text flex-grow-1"><%= item.strDesc %></p>
           </div>
         </div>
       </div>
@@ -73,49 +73,5 @@
   </div>
 </div>
 <!-- Akhir Rekomendasi -->
-<!--2. Section Hasil Pencarian-->
-<main class="container-fluid px-3 my-4">
-  <div class="row g-3">
-    <% if (keyword && resep && resep.meals) { %>
-        <% resep.meals.slice(0,16).forEach(objek => { %>
-          <div class="col-6 col-md-3">
-            <div class="card h-100 shadow-sm">
-                <img src= <%= objek.strMealThumb %> class="card-img-top" alt="<%= objek.strMeal %>">
-                    <div class="card-body">
-                        <h5 class="card-title"> <%= objek.strMeal %>  </h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary"> <%= objek.strCountry %></h6>
-                        <a href="#" class="card-link see-detail" data-bs-toggle="modal" data-bs-target="#exampleModal" data-id="<%= objek.idMeal %>">See Detail</a>
-                    </div>
-            </div> 
-            </div>  
-         <% }) %>
-    <% } else if (keyword && resep && !resep.meals) { %>
-        <div class="col text-center py-5">
-            <h3>--Resep Tidak Ditemukan--</h3>
-        </div>
-         <% } %>
-  </div>
-</main>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Resep Detail</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" id="add-fav" class="btn btn-danger">Add to Myfav</button>
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-   
-  </div>
 </div>
-</div>
-<div id="fav-message"></div>
 <script src="/js/script.js"></script>

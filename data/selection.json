@@ -1,44 +1,44 @@
 [
   {
-    "idMeal": "53418",
-    "strMeal": "Cambodian Stir-fried Morning Glory with Pork, Fermented Soybeans, and Garlic",
-    "strCountry": "Cambodia",
-    "strMealThumb": "https://www.themealdb.com/images/media/meals/wympxc1779734808.jpg",
-    "strDesc": "Turn an ordinary plate of greens into something irresistibly savory. Crisp morning glory meets tender pork, fragrant garlic, and fermented soybeans in a quick Cambodian stir-fry packed with deep umami flavor. Serve it hot with steamed rice and let the garlicky aroma do the rest."
+    "idMeal": "53368",
+    "strMeal": "Singapore Noodles with Shrimp",
+    "strCountry": "Singapore",
+    "strMealThumb": "https://www.themealdb.com/images/media/meals/f3cxnc1765656994.jpg",
+    "strDesc": "Tender shrimp and savory noodles tossed in aromatic spices for a bold, irresistible bite."
   },
   {
     "idMeal": "52949",
     "strMeal": "Sweet and Sour Pork",
     "strCountry": "China",
     "strMealThumb": "https://www.themealdb.com/images/media/meals/1529442316.jpg",
-    "strDesc": "Crispy, golden pork coated in a glossy sauce that hits all the right notes—sweet, tangy, savory, and incredibly moreish. Every bite brings a satisfying contrast between tender pork and bright sweet-and-sour flavor. One taste, and you'll understand why this Chinese classic never goes out of style."
+    "strDesc": "Crispy pork coated in a glossy sauce that's sweet, tangy, savory, and irresistibly delicious."
   },
   {
     "idMeal": "53263",
     "strMeal": "Turkish lamb pilau",
     "strCountry": "Turkey",
     "strMealThumb": "https://www.themealdb.com/images/media/meals/cr2kyr1763793839.jpg",
-    "strDesc": "Let the warm aromas of Turkey fill your kitchen with this comforting lamb pilau. Fragrant basmati rice is cooked with tender lamb, sweet dried apricots, toasted pine nuts, cinnamon, and fresh mint, creating a beautiful balance of savory, sweet, and aromatic flavors. A hearty dish that turns a simple rice dinner into something truly special."
+    "strDesc": "Fragrant rice, tender lamb, and warm spices come together in a comforting Turkish classic."
   },
   {
     "idMeal": "53492",
     "strMeal": "Bulgarian Green Salad",
     "strCountry": "Bulgaria",
     "strMealThumb": "https://www.themealdb.com/images/media/meals/6awyvm1782685205.jpg",
-    "strDesc": "Fresh, crisp, and effortlessly refreshing, this Bulgarian green salad is made for those moments when you want something light but full of character. Crunchy greens, cool cucumber, peppery radishes, and fresh spring onions come together with a bright dressing, while egg and olives add a satisfying finishing touch. Simple ingredients, beautifully balanced."
+    "strDesc": "Fresh, crisp, and refreshing greens with simple ingredients and vibrant Mediterranean flavors."
   },
   {
     "idMeal": "53099",
     "strMeal": "Aussie Burgers",
     "strCountry": "Australia",
     "strMealThumb": "https://www.themealdb.com/images/media/meals/44bzep1761848278.jpg",
-    "strDesc": "This isn't your ordinary burger. Sink your teeth into a juicy Aussie-style burger loaded with savory beef, melted cheese, crispy bacon, fresh vegetables, and a perfectly fried egg, with sweet pineapple and beetroot adding an unforgettable twist. Big, messy, bold, and unapologetically delicious—this is a burger made for serious cravings."
+    "strDesc": "Big, juicy, messy, and loaded with bold flavors—everything a serious burger craving needs."
   },
   {
     "idMeal": "53487",
     "strMeal": "Oyster Mushroom Soup",
     "strCountry": "Bulgaria",
     "strMealThumb": "https://www.themealdb.com/images/media/meals/0r7y5n1782681336.jpg",
-    "strDesc": "Cozy up with a bowl of rich, creamy mushroom soup that feels like comfort in every spoonful. Tender oyster mushrooms simmer with butter, milk, and garlic to create a velvety base, finished with a splash of tangy garlic vinegar and a touch of red pepper for a gentle kick. Warm, creamy, and surprisingly bold."
+    "strDesc": "A warm and creamy mushroom soup packed with comforting flavors in every spoonful."
   }
 ]
