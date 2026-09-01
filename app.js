@@ -41,14 +41,14 @@ app.use(flash());
 
 //menu resep
 app.get("/", async (req, res) => {
-  const keyword = req.query.keyword;
+  const keyword = req.query.keyword?.trim();
   const json = loadSelection();
-  if (keyword) {
+  if (keyword && keyword.length > 0) {
     const resep = await searchResep(keyword);
 
-    res.render("index", {
+    res.render("search", {
       layout: "layouts/main-layout",
-      title: "Meal Recipe",
+      title: "Recipe Collection",
       resep,
       keyword,
       json,
@@ -57,9 +57,30 @@ app.get("/", async (req, res) => {
     res.render("index", {
       layout: "layouts/main-layout",
       title: "Meal Recipe",
-      resep: null,
-      keyword: null,
+      // resep: null,
+      // keyword: null,
       json,
+    });
+  }
+});
+
+//kirim data ke resep.ejs
+app.get("/api/search", async (req, res) => {
+  try {
+    const keyword = req.query.keyword?.trim();
+
+    if (!keyword) {
+      return res.json({
+        meals: null,
+      });
+    }
+    const resep = await searchResep(keyword);
+    res.json(resep);
+  } catch (err) {
+    console.log(err);
+
+    res.status(500).json({
+      error: "Failed to fetch recipes",
     });
   }
 });

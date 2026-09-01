@@ -1,13 +1,30 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm fixed-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Recipe Katalog</a>
+    <a class="navbar-brand" href="#">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 145 80" width="145" height="50">
+        <!-- Icon: Mangkuk & Garpu Modern -->
+        <g transform="translate(0, 10)">
+          <!-- Mangkuk / Plate Base -->
+          <path d="M 10 30 C 10 50, 50 50, 50 30 Z" fill="#E65100" />
+          <!-- Uap / Daun Estetik -->
+          <path d="M 22 22 C 20 12, 28 8, 28 8 C 28 8, 32 16, 26 22 Z" fill="#2E7D32" />
+          <path d="M 34 22 C 32 12, 40 8, 40 8 C 40 8, 44 16, 38 22 Z" fill="#2E7D32" />
+        </g>
+
+        <!-- Teks Savora -->
+        <text x="75" y="48" font-family="'Poppins', 'Segoe UI', sans-serif" font-weight="700" font-size="34" fill="#FFFFFF" letter-spacing="0">
+          Savora
+          <tspan fill="#E65100">.</tspan>
+        </text>
+      </svg></a
+    >
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="/">Resep</a>
+          <a class="nav-link" aria-current="page" href="/">Recipe</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/myfav"> MyFav </a>
@@ -21,6 +38,6 @@
       </ul>
     </div>
   </div>
-  
 </nav>
 <script src="/js/navbar.js"></script>
+<link rel="stylesheet" href="css/style.css" />
