@@ -109,7 +109,7 @@ app.get("/myfav", async (req, res) => {
 
   res.render("myfav", {
     layout: "layouts/main-layout",
-    title: "Halaman My Fav",
+    title: "List Myfav",
     myfavs,
   });
 });
@@ -154,7 +154,7 @@ app.get("/contact", async (req, res) => {
 //halaman form tambah data contact
 app.get("/contact/add", (req, res) => {
   res.render("add-contact", {
-    title: "Form Tambah Data Supplier Contact",
+    title: "Add Supplier Contact",
     layout: "layouts/main-layout",
   });
 });
@@ -176,7 +176,7 @@ app.post(
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       res.render("add-contact", {
-        title: "Form Tambah Data Supplier Contact",
+        title: "Add Data Supplier Contact",
         layout: "layouts/main-layout",
         errors: errors.array(),
       });
@@ -214,7 +214,7 @@ app.get("/contact/edit/:nama", async (req, res) => {
   try {
     const contact = await Supplier.findOne({ nama: req.params.nama });
     res.render("edit-contact", {
-      title: "Form Ubah Data Supplier",
+      title: "Change Data Supplier",
       layout: "layouts/main-layout",
       contact,
     });
@@ -246,7 +246,7 @@ app.put(
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       res.render("edit-contact", {
-        title: "Form Ubah Data Supplier",
+        title: "Change Data Supplier",
         layout: "layouts/main-layout",
         errors: errors.array(),
         contact: req.body,
