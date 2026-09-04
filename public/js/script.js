@@ -78,7 +78,7 @@ const showMealDetail = async (id) => {
           allowfullscreen>
           </iframe>`;
     }
-    //ubah format instruksi
+    //ubah format instruksi dari \r\n menjadi semua \n
     const instruction = meal.strInstructions.replace(/\r\n/g, "\n").trim();
 
     //masukan semua ke body-modal
