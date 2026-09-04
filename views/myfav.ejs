@@ -1,47 +1,70 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-8">
-        <h2>My Favourites</h2>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">No</th>
-                    <th scope="col">Recipe Name</th>
-                    <th scope="col">Country</th>
-                    <th class="text-center">Aksi</th>
-                </tr>
-            </thead>
-            <tbody class="table-group-divider">
-                <% if (myfavs.length === 0) { %>
-                <tr>
-                    <td colspan="4">
-                        <div class="alert alert-danger fw-bold" role="alert">
-                            Data My Favourites masih Kosong !!!
-                        </div>
-                    </td>
-                </tr>
-                <% } %>
-                <% myfavs.forEach((myfav,i) => {%>
-                <tr>
-                    <th scope="row"><%= i+1%></th>
-                    <td><%= myfav.strMeal %></td>
-                    <td><%= myfav.strCountry %></td>
-                    <td class="text-center">
-                        <div class="d-flex gap-1 justify-content-center">
-                            <a href="/export-pdf/<%= myfav.idMeal %>" class="btn btn-warning btn-sm">
-                                <i class="bi bi-filetype-pdf"></i>PDF
-                            </a>
-                            <button class="btn btn-danger btn-sm delete" data-id="<%= myfav.idMeal %>"> 
-                                <i class="bi bi-trash"></i>Delete
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-                <%})%>
-            </tbody>
-        </table>
+<div class="container-fluid mt-3">
+        <div class="row g-4 ">
+            <div class="col-lg-7 display: flex ps-0 mt-2">
+            <h2 class="judulMyfav">My Favourites</h2>
+            <table class="table myfav-table">
+                <thead style="border-radius: 10px;">
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Recipe Name</th>
+                        <th scope="col">Country</th>
+                        <th class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group">
+                    <% if (myfavs.length === 0) { %>
+                    <tr>
+                        <td colspan="4">
+                            <div class="alert alert-danger fw-bold" role="alert">
+                                Data My Favourites masih Kosong !!!
+                            </div>
+                        </td>
+                    </tr>
+                    <% } %>
+                    <% myfavs.forEach((myfav,i) => {%>
+                    <tr class="fav-row" data-img="<%= myfav.strMealThumb %>" data-meal="<%= myfav.strMeal %>">
+                        <th scope="row"><%= i+1%></th>
+                        <td><%= myfav.strMeal %></td>
+                        <td><%= myfav.strCountry %></td>
+                        <td class="text-center">
+                            <div class="d-flex gap-1 justify-content-center">
+                                <a href="/export-pdf/<%= myfav.idMeal %>" class="btn btn-warning btn-sm">
+                                    <i class="bi bi-filetype-pdf"></i>PDF
+                                </a>
+                                <button class="btn btn-danger btn-sm delete" data-id="<%= myfav.idMeal %>"> 
+                                    <i class="bi bi-trash"></i>Delete
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <%})%>
+                </tbody>
+            </table>
         </div>
-    </div>
+        <div class="col-12 col-lg-5 pt-6 mt-lg-0">
+            <div class="card mb-3 sticky-top" style="max-width: 540px; top: 78px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        <img id="previewImg"src="..." class="img-fluid rounded-start" alt="...">
+                    </div>
+                    <div class="col-md-8 d-flex">
+                        <div class="card-body">
+                            <h5 class="card-title">Preview Recipe</h5>
+                            <p class="card-text" id="judulCard">This is preview for  Your personal recipe vault—stored, loved, and ready to inspire your next dish.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3 p-3">
+                    <p>
+                        Pilih Resep terbaikmu
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+
+        </div>
+
 </div>
 <div id="fav-message"></div>
 <script src="/js/myfav.js"></script>

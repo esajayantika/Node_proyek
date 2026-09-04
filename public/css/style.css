@@ -1,3 +1,4 @@
+/* tampilan notifikasi sistem */
 #fav-message {
   position: fixed;
   top: 20px;
@@ -18,53 +19,144 @@
 
   z-index: 9999;
 }
+/* ketika class show dipanggil */
 #fav-message.show {
   opacity: 1;
   visibility: visible;
 }
+
+/* mengatur tampilan dari paragraf instruksi modal suapaya mau ke-enter */
 .instructions {
   white-space: pre-line;
   line-height: 1.6;
 }
+
+/* bg hero section */
 .hero-section {
   background-color: #f8c76b;
 }
+/* text color */
 .hero-konten {
   color: #3d2b1f;
 }
+/* image recomendation config */
 .c-img {
   max-height: 400px;
   object-fit: cover;
   width: 100%;
   object-position: center;
 }
+/* text caption di carousel */
 .carousel-caption {
   color: #ffff;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
-
+/* mengatur tampilan body dari main-layout */
 .page-wrapper {
-  padding-top: 75px;
+  padding-top: 65px;
   min-height: 100vh;
   display: flex;
-  background-color: #f5e4c4;
+  background-color: #fff9f5;
 }
+
+/* mengatur text judul card */
 .card-title {
   color: #ffff;
   font-size: 26px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
 }
+
+/* background card */
 .card-body {
   background-color: #f8c76b;
 }
+
+/* nav naik 1 lvl dari container main-layout */
 .navbar > .container-fluid {
   justify-content: flex-start;
-  padding-left: 0rem;
+  padding-left: 1rem;
 }
+
+/* pengaturan jarak konten navbar */
 .navbar-nav {
-  margin-left: 0.5rem;
   gap: 0.5rem;
 }
+
+/* rata kanan icon burger menu di hp */
 .navbar-toggler {
   margin-left: auto;
+}
+
+/* pengaturan tabel */
+.table {
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  padding-left: 5px;
+}
+/* pengaturan setiap baris tabel myfav */
+.table tbody tr {
+  background: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: 0.2s ease;
+}
+.table tbody tr:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* pengaturan judul halaman dan gradien bg */
+.judulMyfav {
+  background: linear-gradient(120deg, #f8c76b, #fff9f5);
+  color: #3d2b1f;
+  padding: 10px;
+}
+
+/* bg color table head */
+.myfav-table thead th {
+  background-color: #f8c76b;
+}
+
+/* pengaturan table responsive di layar mobile */
+@media (max-width: 768px) {
+  .myfav-table tbody tr {
+    display: block;
+    padding: 15px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    position: relative;
+    transition:
+      filter 0.2s ease,
+      transform 0.2s ease;
+  }
+  .myfav-table tbody tr:hover {
+    filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.12));
+    transform: translateY(-3px);
+    filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.12));
+  }
+  .myfav-table tbody th,
+  .myfav-table tbody td {
+    border: none;
+    padding: 0;
+  }
+  .myfav-table tbody th {
+    display: inline;
+  }
+  .myfav-table tbody th::after {
+    content: ". ";
+  }
+  .myfav-table tbody td:nth-child(2) {
+    display: inline;
+    font-weight: 600;
+  }
+  .myfav-table tbody td:nth-child(3) {
+    display: block;
+    margin-top: 5px;
+    color: #777;
+    font-size: 0.9rem;
+  }
+  .myfav-table thead {
+    display: none;
+  }
 }
